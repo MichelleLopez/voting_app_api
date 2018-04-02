@@ -38,6 +38,15 @@ class ProductsController < ApplicationController
     @product.destroy
   end
 
+   # POST /products/1/upvote
+  def upvote
+    if @product.increment!(:num_votes)
+      render json: @product
+    else
+      render json: @product.errors, status: :unprocessable_entity
+    end
+  end
+
   private
     # Use callbacks to share common setup or constraints between actions.
     def set_product
